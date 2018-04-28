@@ -3,8 +3,8 @@ from resnet_152 import resnet152_model
 from keras.preprocessing.image import ImageDataGenerator
 
 IMG_WIDTH, IMG_HEIGHT = 224, 224
-TRAIN_DATA = 'mart/standford-cars-crop/train'
-VALID_DATA = 'mart/standford-cars-crop/valid'
+TRAIN_DATA = 'data/train'
+VALID_DATA = 'data/valid'
 NUM_CLASSES = 196
 NB_TRAIN_SAMPLES = 6549
 NB_VALID_SAMPLES = 1595

@@ -1,1 +1,9 @@
 .idea/
+__pycache__/
+car_devkit.tgz
+cars_test.tgz
+cars_train.tgz
+custom_layers/__pycache__/
+data/
+imagenet_models/
+logs/
