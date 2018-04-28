@@ -1,4 +1,4 @@
-# Facial Expression Prediction
+# Car Recognition
 
 
 This repository is to do car recognition by fine-tuning ResNet-152 with Cars Dataset from Stanford.
@@ -17,14 +17,13 @@ We use the Cars Dataset, which contains 16,185 images of 196 classes of cars. Th
 
  ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/random.png)
 
-You can get it from [Cars Dataset](https://ai.stanford.edu/~jkrause/cars/car_dataset.html), make sure cars_train.tgz, cars_test.tgz and car_devkit.tgz are is in mart folder:
+You can get it from [Cars Dataset](https://ai.stanford.edu/~jkrause/cars/car_dataset.html):
 
 ```bash
-$ mkdir mart
-$ cd mart
+$ cd Car-Recognition
 $ wget http://imagenet.stanford.edu/internal/car196/cars_train.tgz
 $ wget http://imagenet.stanford.edu/internal/car196/cars_test.tgz
-$ wget https://ai.stanford.edu/~jkrause/cars/car_devkit.tgz
+$ wget --no-check-certificate https://ai.stanford.edu/~jkrause/cars/car_devkit.tgz
 ```
 
 ## ImageNet Pretrained Models
