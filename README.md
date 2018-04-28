@@ -17,7 +17,15 @@ We use the Cars Dataset, which contains 16,185 images of 196 classes of cars. Th
 
  ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/random.png)
 
-You can get it from [Cars Dataset](https://ai.stanford.edu/~jkrause/cars/car_dataset.html), make sure cars_train.tgz and cars_test.tgz are is in mart folder.
+You can get it from [Cars Dataset](https://ai.stanford.edu/~jkrause/cars/car_dataset.html), make sure cars_train.tgz, cars_test.tgz and car_devkit.tgz are is in mart folder:
+
+```bash
+$ mkdir mart
+$ cd mart
+$ wget http://imagenet.stanford.edu/internal/car196/cars_train.tgz
+$ wget http://imagenet.stanford.edu/internal/car196/cars_test.tgz
+$ wget https://ai.stanford.edu/~jkrause/cars/car_devkit.tgz
+```
 
 ## ImageNet Pretrained Models
 
@@ -26,7 +34,7 @@ Download [ResNet-152](https://drive.google.com/file/d/0Byy2AcGyEVxfeXExMzNNOHpEO
 ## Usage
 
 ### Data Pre-processing
-Extract 8,041 training images, and split them by 80:20 rule (6,433 for training, 1,608 for validation):
+Extract 8,144 training images, and split them by 80:20 rule (6,549 for training, 1,595 for validation):
 ```bash
 $ python pre-process.py
 ```
