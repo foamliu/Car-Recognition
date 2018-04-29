@@ -26,6 +26,7 @@ def save_train_data(fnames, labels, bboxes):
         fname = fnames[i]
         label = labels[i][0]
         (x1, y1, x2, y2) = bboxes[i]
+
         src_path = os.path.join(src_folder, fname)
         src_image = cv.imread(src_path)
         height, width, _ = src_image.shape
@@ -33,8 +34,8 @@ def save_train_data(fnames, labels, bboxes):
         margin = 10
         x1 = max(0, x1 - margin)
         y1 = max(0, y1 - margin)
-        x2 = min(x2 + margin, width - 1)
-        y2 = min(y2 + margin, height - 1)
+        x2 = min(x2 + 1 + margin, width)
+        y2 = min(y2 + 1 + margin, height)
         print("{} -> {}".format(fname, label))
 
         if i in train_indexes:
@@ -48,24 +49,32 @@ def save_train_data(fnames, labels, bboxes):
         dst_path = os.path.join(dst_path, fname)
 
         crop_image = src_image[y1:y2, x1:x2]
-        dst_img = cv.resize(src=crop_image, dsize=(227, 227), fx=0, fy=0, interpolation=cv.INTER_NEAREST)
+        dst_img = cv.resize(src=crop_image, dsize=(img_height, img_width), fx=0, fy=0, interpolation=cv.INTER_NEAREST)
         cv.imwrite(dst_path, dst_img)
 
 
 def save_test_data(fnames, bboxes):
     src_folder = 'cars_test'
+    dst_folder = 'data/test'
     num_samples = len(fnames)
 
     for i in range(num_samples):
         fname = fnames[i]
         (x1, y1, x2, y2) = bboxes[i]
-        print(fname)
         src_path = os.path.join(src_folder, fname)
-        dst_folder = 'data/test'
-        dst_path = os.path.join(dst_folder, fname)
         src_image = cv.imread(src_path)
+        height, width, _ = src_image.shape
+        # margins of 10 pixels
+        margin = 10
+        x1 = max(0, x1 - margin)
+        y1 = max(0, y1 - margin)
+        x2 = min(x2 + 1 + margin, width)
+        y2 = min(y2 + 1 + margin, height)
+        print(fname)
+
+        dst_path = os.path.join(dst_folder, fname)
         crop_image = src_image[y1:y2, x1:x2]
-        dst_img = cv.resize(src=crop_image, dsize=(227, 227), fx=0, fy=0, interpolation=cv.INTER_NEAREST)
+        dst_img = cv.resize(src=crop_image, dsize=(img_height, img_width), fx=0, fy=0, interpolation=cv.INTER_NEAREST)
         cv.imwrite(dst_path, dst_img)
 
 
@@ -124,6 +133,9 @@ def process_test_data():
 
 
 if __name__ == '__main__':
+    # parameters
+    img_width, img_height = 224, 224
+
     print('Extracting cars_train.tgz...')
     if not os.path.exists('cars_train'):
         with tarfile.open('cars_train.tgz', "r:gz") as tar:
