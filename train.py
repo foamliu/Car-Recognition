@@ -1,8 +1,9 @@
 import keras
-from resnet_152 import resnet152_model
+#from resnet_152 import resnet152_model
+from resnet_50 import resnet50_model
 from keras.preprocessing.image import ImageDataGenerator
 
-IMG_WIDTH, IMG_HEIGHT = 224, 224
+IMG_WIDTH, IMG_HEIGHT = 227, 227
 TRAIN_DATA = 'data/train'
 VALID_DATA = 'data/valid'
 NUM_CLASSES = 196
@@ -12,7 +13,8 @@ BATCH_SIZE = 16
 
 if __name__ == '__main__':
     # build a classifier model
-    model = resnet152_model(IMG_HEIGHT, IMG_WIDTH, 3, NUM_CLASSES)
+    #model = resnet152_model(IMG_HEIGHT, IMG_WIDTH, 3, NUM_CLASSES)
+    model = resnet50_model(IMG_HEIGHT, IMG_WIDTH, 3, NUM_CLASSES)
 
     # prepare data augmentation configuration
     train_data_gen = ImageDataGenerator(rescale=1. / 255, zoom_range=0.2, rotation_range=20, width_shift_range=0.2, height_shift_range=0.2, horizontal_flip=True)

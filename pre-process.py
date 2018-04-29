@@ -39,7 +39,7 @@ def save_train_data(fnames, labels, bboxes):
         dst_path = os.path.join(dst_path, fname)
         src_image = cv.imread(src_path)
         crop_image = src_image[y1:y2, x1:x2]
-        dst_img = cv.resize(src=crop_image, dsize=(224, 244), fx=0, fy=0, interpolation=cv.INTER_NEAREST)
+        dst_img = cv.resize(src=crop_image, dsize=(227, 227), fx=0, fy=0, interpolation=cv.INTER_NEAREST)
         cv.imwrite(dst_path, dst_img)
 
 
@@ -56,7 +56,7 @@ def save_test_data(fnames, bboxes):
         dst_path = os.path.join(dst_folder, fname)
         src_image = cv.imread(src_path)
         crop_image = src_image[y1:y2, x1:x2]
-        dst_img = cv.resize(src=crop_image, dsize=(224, 244), fx=0, fy=0, interpolation=cv.INTER_NEAREST)
+        dst_img = cv.resize(src=crop_image, dsize=(227, 227), fx=0, fy=0, interpolation=cv.INTER_NEAREST)
         cv.imwrite(dst_path, dst_img)
 
 
