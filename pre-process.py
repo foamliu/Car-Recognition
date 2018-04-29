@@ -29,7 +29,7 @@ def save_train_data(fnames, labels, bboxes):
 
         src_path = os.path.join(src_folder, fname)
         src_image = cv.imread(src_path)
-        height, width, _ = src_image.shape
+        height, width = src_image.shape[:2]
         # margins of 10 pixels
         margin = 10
         x1 = max(0, x1 - margin)
@@ -63,7 +63,7 @@ def save_test_data(fnames, bboxes):
         (x1, y1, x2, y2) = bboxes[i]
         src_path = os.path.join(src_folder, fname)
         src_image = cv.imread(src_path)
-        height, width, _ = src_image.shape
+        height, width = src_image.shape[:2]
         # margins of 10 pixels
         margin = 10
         x1 = max(0, x1 - margin)
