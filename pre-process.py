@@ -26,8 +26,17 @@ def save_train_data(fnames, labels, bboxes):
         fname = fnames[i]
         label = labels[i][0]
         (x1, y1, x2, y2) = bboxes[i]
-        print("{} -> {}".format(fname, label))
         src_path = os.path.join(src_folder, fname)
+        src_image = cv.imread(src_path)
+        height, width, _ = src_image.shape
+        # margins of 10 pixels
+        margin = 10
+        x1 = max(0, x1 - margin)
+        y1 = max(0, y1 - margin)
+        x2 = min(x2 + margin, width - 1)
+        y2 = min(y2 + margin, height - 1)
+        print("{} -> {}".format(fname, label))
+
         if i in train_indexes:
             dst_folder = 'data/train'
         else:
@@ -37,7 +46,7 @@ def save_train_data(fnames, labels, bboxes):
         if not os.path.exists(dst_path):
             os.makedirs(dst_path)
         dst_path = os.path.join(dst_path, fname)
-        src_image = cv.imread(src_path)
+
         crop_image = src_image[y1:y2, x1:x2]
         dst_img = cv.resize(src=crop_image, dsize=(227, 227), fx=0, fy=0, interpolation=cv.INTER_NEAREST)
         cv.imwrite(dst_path, dst_img)

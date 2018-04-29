@@ -34,4 +34,4 @@ if __name__ == '__main__':
         epochs=80,
         callbacks=[tbCallBack])
 
-    model.save_weights("model.h5")
+    model.save("model.h5")
