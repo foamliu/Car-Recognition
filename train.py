@@ -1,5 +1,5 @@
 import keras
-from resnet_152 import resnet152_model
+from resnet_50 import resnet50_model
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import CSVLogger, ModelCheckpoint, EarlyStopping
 from keras.callbacks import ReduceLROnPlateau
@@ -18,7 +18,7 @@ patience = 50
 
 if __name__ == '__main__':
     # build a classifier model
-    model = resnet152_model(img_height, img_width, num_channels, num_classes)
+    model = resnet50_model(img_height, img_width, num_channels, num_classes)
 
     # prepare data augmentation configuration
     train_data_gen = ImageDataGenerator(rescale=1/255.,
