@@ -21,20 +21,13 @@ if __name__ == '__main__':
     model = resnet152_model(img_height, img_width, num_channels, num_classes)
 
     # prepare data augmentation configuration
-    train_data_gen = ImageDataGenerator(featurewise_center=False,
-                                        featurewise_std_normalization=False,
-                                        rotation_range=10,
+    train_data_gen = ImageDataGenerator(rescale=1/255.,
+                                        rotation_range=20.,
                                         width_shift_range=0.1,
                                         height_shift_range=0.1,
-                                        zoom_range=0.1,
+                                        zoom_range=0.2,
                                         horizontal_flip=True)
-    valid_data_gen = ImageDataGenerator(featurewise_center=False,
-                                        featurewise_std_normalization=False,
-                                        rotation_range=10,
-                                        width_shift_range=0.1,
-                                        height_shift_range=0.1,
-                                        zoom_range=0.1,
-                                        horizontal_flip=True)
+    valid_data_gen = ImageDataGenerator(rescale=1/255.)
     # callbacks
     tensor_board = keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=0, write_graph=True, write_images=True)
     log_file_path = 'training.log'

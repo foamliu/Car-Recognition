@@ -49,7 +49,7 @@ def save_train_data(fnames, labels, bboxes):
         dst_path = os.path.join(dst_path, fname)
 
         crop_image = src_image[y1:y2, x1:x2]
-        dst_img = cv.resize(src=crop_image, dsize=(img_height, img_width), fx=0, fy=0, interpolation=cv.INTER_NEAREST)
+        dst_img = cv.resize(src=crop_image, dsize=(img_height, img_width))
         cv.imwrite(dst_path, dst_img)
 
 
@@ -74,7 +74,7 @@ def save_test_data(fnames, bboxes):
 
         dst_path = os.path.join(dst_folder, fname)
         crop_image = src_image[y1:y2, x1:x2]
-        dst_img = cv.resize(src=crop_image, dsize=(img_height, img_width), fx=0, fy=0, interpolation=cv.INTER_NEAREST)
+        dst_img = cv.resize(src=crop_image, dsize=(img_height, img_width))
         cv.imwrite(dst_path, dst_img)
 
 
@@ -160,7 +160,7 @@ if __name__ == '__main__':
     ensure_folder('data/test')
 
     process_train_data()
-    process_test_data()
+    # process_test_data()
 
     # clean up
     shutil.rmtree('cars_train')
