@@ -7,6 +7,7 @@ import os
 import cv2 as cv
 import shutil
 import random
+from console_progressbar import ProgressBar
 
 
 def ensure_folder(folder):
@@ -22,9 +23,11 @@ def save_train_data(fnames, labels, bboxes):
     num_valid = num_samples - num_train
     train_indexes = random.sample(range(num_samples), num_valid)
 
+    pb = ProgressBar(total=100, prefix='Save train data', suffix='', decimals=3, length=50, fill='>')
+
     for i in range(num_samples):
         fname = fnames[i]
-        label = labels[i][0]
+        label = labels[i]
         (x1, y1, x2, y2) = bboxes[i]
 
         src_path = os.path.join(src_folder, fname)
@@ -36,7 +39,8 @@ def save_train_data(fnames, labels, bboxes):
         y1 = max(0, y1 - margin)
         x2 = min(x2 + 1 + margin, width)
         y2 = min(y2 + 1 + margin, height)
-        print("{} -> {}".format(fname, label))
+        # print("{} -> {}".format(fname, label))
+        pb.print_progress_bar((i+1) * 100 / num_samples)
 
         if i in train_indexes:
             dst_folder = 'data/train'
@@ -87,6 +91,7 @@ def process_train_data():
     fnames = []
     class_ids = []
     bboxes = []
+    labels = []
 
     for annotation in annotations:
         bbox_x1 = annotation[0][0][0][0]
@@ -94,6 +99,7 @@ def process_train_data():
         bbox_x2 = annotation[0][2][0][0]
         bbox_y2 = annotation[0][3][0][0]
         class_id = annotation[0][4][0][0]
+        labels.append(str(class_id))
         fname = annotation[0][5][0]
         bboxes.append((bbox_x1, bbox_y1, bbox_x2, bbox_y2))
         class_ids.append(class_id)
@@ -102,11 +108,6 @@ def process_train_data():
     labels_count = np.unique(class_ids).shape[0]
     print(np.unique(class_ids))
     print('The number of different cars is %d' % labels_count)
-
-    labels = []
-    for class_id in class_ids:
-        class_name = class_names[class_id-1][0]
-        labels.append(class_name)
 
     save_train_data(fnames, labels, bboxes)
 
@@ -134,7 +135,7 @@ def process_test_data():
 
 if __name__ == '__main__':
     # parameters
-    img_width, img_height = 224, 224
+    img_width, img_height = 227, 227
 
     print('Extracting cars_train.tgz...')
     if not os.path.exists('cars_train'):
@@ -153,7 +154,7 @@ if __name__ == '__main__':
     class_names = cars_meta['class_names']  # shape=(1, 196)
     class_names = np.transpose(class_names)
     print('class_names.shape: ' + str(class_names.shape))
-    print('Sample class_name: {}'.format(class_names[8][0][0]))
+    print('Sample class_name: [{}]'.format(class_names[8][0][0]))
 
     ensure_folder('data/train')
     ensure_folder('data/valid')
@@ -163,9 +164,9 @@ if __name__ == '__main__':
     # process_test_data()
 
     # clean up
-    shutil.rmtree('cars_train')
-    shutil.rmtree('cars_test')
-    shutil.rmtree('devkit')
+    # shutil.rmtree('cars_train')
+    # shutil.rmtree('cars_test')
+    # shutil.rmtree('devkit')
 
 
 

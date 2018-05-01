@@ -7,3 +7,6 @@ custom_layers/__pycache__/
 data/
 imagenet_models/
 logs/
+cars_test/
+cars_train/
+devkit/
