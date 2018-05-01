@@ -23,7 +23,7 @@ def save_train_data(fnames, labels, bboxes):
     num_valid = num_samples - num_train
     train_indexes = random.sample(range(num_samples), num_valid)
 
-    pb = ProgressBar(total=100, prefix='Save train data', suffix='', decimals=3, length=50, fill='>')
+    pb = ProgressBar(total=100, prefix='Save train data', suffix='', decimals=3, length=50, fill='=>')
 
     for i in range(num_samples):
         fname = fnames[i]
@@ -33,14 +33,14 @@ def save_train_data(fnames, labels, bboxes):
         src_path = os.path.join(src_folder, fname)
         src_image = cv.imread(src_path)
         height, width = src_image.shape[:2]
-        # margins of 10 pixels
-        margin = 10
+        # margins of 16 pixels
+        margin = 16
         x1 = max(0, x1 - margin)
         y1 = max(0, y1 - margin)
-        x2 = min(x2 + 1 + margin, width)
-        y2 = min(y2 + 1 + margin, height)
+        x2 = min(x2 + margin, width)
+        y2 = min(y2 + margin, height)
         # print("{} -> {}".format(fname, label))
-        pb.print_progress_bar((i+1) * 100 / num_samples)
+        pb.print_progress_bar((i + 1) * 100 / num_samples)
 
         if i in train_indexes:
             dst_folder = 'data/train'
@@ -68,12 +68,12 @@ def save_test_data(fnames, bboxes):
         src_path = os.path.join(src_folder, fname)
         src_image = cv.imread(src_path)
         height, width = src_image.shape[:2]
-        # margins of 10 pixels
-        margin = 10
+        # margins of 16 pixels
+        margin = 16
         x1 = max(0, x1 - margin)
         y1 = max(0, y1 - margin)
-        x2 = min(x2 + 1 + margin, width)
-        y2 = min(y2 + 1 + margin, height)
+        x2 = min(x2 + margin, width)
+        y2 = min(y2 + margin, height)
         print(fname)
 
         dst_path = os.path.join(dst_folder, fname)
@@ -167,7 +167,3 @@ if __name__ == '__main__':
     # shutil.rmtree('cars_train')
     # shutil.rmtree('cars_test')
     # shutil.rmtree('devkit')
-
-
-
-
