@@ -62,6 +62,8 @@ def save_test_data(fnames, bboxes):
     dst_folder = 'data/test'
     num_samples = len(fnames)
 
+    pb = ProgressBar(total=100, prefix='Save test data', suffix='', decimals=3, length=50, fill='=')
+
     for i in range(num_samples):
         fname = fnames[i]
         (x1, y1, x2, y2) = bboxes[i]
@@ -74,7 +76,8 @@ def save_test_data(fnames, bboxes):
         y1 = max(0, y1 - margin)
         x2 = min(x2 + margin, width)
         y2 = min(y2 + margin, height)
-        print(fname)
+        # print(fname)
+        pb.print_progress_bar((i + 1) * 100 / num_samples)
 
         dst_path = os.path.join(dst_folder, fname)
         crop_image = src_image[y1:y2, x1:x2]
@@ -161,7 +164,7 @@ if __name__ == '__main__':
     ensure_folder('data/test')
 
     process_train_data()
-    # process_test_data()
+    process_test_data()
 
     # clean up
     shutil.rmtree('cars_train')
