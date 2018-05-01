@@ -23,7 +23,7 @@ def save_train_data(fnames, labels, bboxes):
     num_valid = num_samples - num_train
     train_indexes = random.sample(range(num_samples), num_valid)
 
-    pb = ProgressBar(total=100, prefix='Save train data', suffix='', decimals=3, length=50, fill='=>')
+    pb = ProgressBar(total=100, prefix='Save train data', suffix='', decimals=3, length=50, fill='=')
 
     for i in range(num_samples):
         fname = fnames[i]
