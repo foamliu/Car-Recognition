@@ -19,9 +19,9 @@ def save_train_data(fnames, labels, bboxes):
     src_folder = 'cars_train'
     num_samples = len(fnames)
 
-    num_train = int(round(num_samples * 0.8))
-    num_valid = num_samples - num_train
-    train_indexes = random.sample(range(num_samples), num_valid)
+    train_split = 0.8
+    num_train = int(round(num_samples * train_split))
+    train_indexes = random.sample(range(num_samples), num_train)
 
     pb = ProgressBar(total=100, prefix='Save train data', suffix='', decimals=3, length=50, fill='=')
 
@@ -135,7 +135,7 @@ def process_test_data():
 
 if __name__ == '__main__':
     # parameters
-    img_width, img_height = 227, 227
+    img_width, img_height = 224, 224
 
     print('Extracting cars_train.tgz...')
     if not os.path.exists('cars_train'):
@@ -164,6 +164,6 @@ if __name__ == '__main__':
     # process_test_data()
 
     # clean up
-    # shutil.rmtree('cars_train')
-    # shutil.rmtree('cars_test')
-    # shutil.rmtree('devkit')
+    shutil.rmtree('cars_train')
+    shutil.rmtree('cars_test')
+    shutil.rmtree('devkit')

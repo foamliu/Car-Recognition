@@ -1,5 +1,5 @@
 import keras
-from resnet_50 import resnet50_model
+from resnet_152 import resnet152_model
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import CSVLogger, ModelCheckpoint, EarlyStopping
 from keras.callbacks import ReduceLROnPlateau
@@ -18,23 +18,22 @@ patience = 50
 
 if __name__ == '__main__':
     # build a classifier model
-    model = resnet50_model(img_height, img_width, num_channels, num_classes)
+    model = resnet152_model(img_height, img_width, num_channels, num_classes)
 
     # prepare data augmentation configuration
-    train_data_gen = ImageDataGenerator(rescale=1/255.,
-                                        rotation_range=20.,
+    train_data_gen = ImageDataGenerator(rotation_range=20.,
                                         width_shift_range=0.1,
                                         height_shift_range=0.1,
                                         zoom_range=0.2,
                                         horizontal_flip=True)
-    valid_data_gen = ImageDataGenerator(rescale=1/255.)
+    valid_data_gen = ImageDataGenerator()
     # callbacks
     tensor_board = keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=0, write_graph=True, write_images=True)
-    log_file_path = 'training.log'
+    log_file_path = 'logs/training.log'
     csv_logger = CSVLogger(log_file_path, append=False)
-    early_stop = EarlyStopping('val_loss', patience=patience)
-    reduce_lr = ReduceLROnPlateau('val_loss', factor=0.1, patience=int(patience / 4), verbose=1)
-    trained_models_path = 'model'
+    early_stop = EarlyStopping('val_acc', patience=patience)
+    reduce_lr = ReduceLROnPlateau('val_acc', factor=0.1, patience=int(patience / 4), verbose=1)
+    trained_models_path = 'models/model'
     model_names = trained_models_path + '.{epoch:02d}-{val_acc:.2f}.hdf5'
     model_checkpoint = ModelCheckpoint(model_names, monitor='val_acc', verbose=1, save_best_only=True)
     callbacks = [tensor_board, model_checkpoint, csv_logger, early_stop, reduce_lr]
