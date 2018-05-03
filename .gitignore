@@ -5,7 +5,7 @@ cars_test.tgz
 cars_train.tgz
 custom_layers/__pycache__/
 data/
-imagenet_models/
+models/
 logs/
 cars_test/
 cars_train/

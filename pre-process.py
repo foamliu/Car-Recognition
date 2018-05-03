@@ -169,4 +169,4 @@ if __name__ == '__main__':
     # clean up
     shutil.rmtree('cars_train')
     shutil.rmtree('cars_test')
-    shutil.rmtree('devkit')
+    # shutil.rmtree('devkit')
