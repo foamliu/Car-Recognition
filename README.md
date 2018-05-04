@@ -48,7 +48,7 @@ If you want to visualize during training, run in your terminal:
 $ tensorboard --logdir path_to_current_dir/logs
 ```
 
- ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/train.png)
+ ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/train.jpg)
 
 ### Analysis
 Use 8,041 testing images for result analysis.
