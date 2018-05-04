@@ -37,20 +37,18 @@ Extract 8,144 training images, and split them by 80:20 rule (6,515 for training,
 ```bash
 $ python pre-process.py
 ```
- When complete, folder structure looks like:
-
- ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/data.png)
 
 ### Train
 ```bash
 $ python train.py
 ```
- ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/train.png)
 
 If you want to visualize during training, run in your terminal:
 ```bash
 $ tensorboard --logdir path_to_current_dir/logs
 ```
+
+ ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/train.png)
 
 ### Analysis
 Use 8,041 testing images for result analysis.
