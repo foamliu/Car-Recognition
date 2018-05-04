@@ -65,7 +65,8 @@ def decode(class_ids, img_dir):
 
     y_test = []
     for img_path in img_files:
-        image_id = int(img_path[:5])
+        tokens = img_path.split('/')
+        image_id = int(tokens[-1][:5])
         y_test.append(class_ids[image_id - 1])
 
     return y_test
