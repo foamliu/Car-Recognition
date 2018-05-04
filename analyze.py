@@ -43,7 +43,7 @@ def predict(img_dir, model):
         tokens = img_path.split('/')
         class_id = int(tokens[-2])
         # print(str(class_id))
-        y_test.append(str(class_id))
+        y_test.append(class_id)
         pb.print_progress_bar(len(y_pred) * 100 / len(img_files))
 
     return y_pred, y_test
