@@ -29,22 +29,22 @@ def predict(img_dir, model):
     img_files = sorted(img_files)
 
     y_pred = []
-    y_prob = []
     y_test = []
-    pb = ProgressBar(total=100, prefix='Predict data', suffix='', decimals=3, length=50, fill='=')
+    #pb = ProgressBar(total=100, prefix='Predict data', suffix='', decimals=3, length=50, fill='=')
     for img_path in img_files:
+        print(img_path)
         img = image.load_img(img_path, target_size=(224, 224))
         x = image.img_to_array(img)
         preds = model.predict(x[None, :, :, :])
         decoded = decode_predictions(preds, top=1)
         pred_label = decoded[0][0][0]
-        pred_prob = decoded[0][0][1]
+        print(pred_label)
         y_pred.append(pred_label)
-        y_prob.append(pred_prob)
         tokens = img_path.split('/')
         class_id = int(tokens[-2])
-        y_test.append(class_id)
-        pb.print_progress_bar(len(y_pred) * 100 / len(img_files))
+        print(str(class_id))
+        y_test.append(str(class_id))
+        #pb.print_progress_bar(len(y_pred) * 100 / len(img_files))
 
     return y_pred, y_test
 
