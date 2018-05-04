@@ -41,7 +41,8 @@ def predict(model, img_dir):
     y_pred = []
     y_prob = []
     pb = ProgressBar(total=100, prefix='Predict data', suffix='', decimals=3, length=50, fill='=')
-    for i in range(len(img_files)):
+    num_samples = len(img_files)
+    for i in range(num_samples):
         img_path = img_files[i]
         img = image.load_img(img_path, target_size=(224, 224))
         x = image.img_to_array(img)
@@ -51,7 +52,7 @@ def predict(model, img_dir):
         pred_prob = decoded[0][0][1]
         y_pred.append(pred_label)
         y_prob.append(pred_prob)
-        pb.print_progress_bar((i + 1) * 100 / img_files)
+        pb.print_progress_bar((i + 1) * 100 / num_samples)
 
     return y_pred, y_prob
 
