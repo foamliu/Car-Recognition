@@ -102,7 +102,7 @@ def process_train_data():
         bbox_x2 = annotation[0][2][0][0]
         bbox_y2 = annotation[0][3][0][0]
         class_id = annotation[0][4][0][0]
-        labels.append(str(class_id))
+        labels.append('%04d' % (class_id,))
         fname = annotation[0][5][0]
         bboxes.append((bbox_x1, bbox_y1, bbox_x2, bbox_y2))
         class_ids.append(class_id)
