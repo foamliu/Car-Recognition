@@ -26,11 +26,13 @@ def predict(img_dir, model):
     for root, dirs, files in os.walk(img_dir, topdown=False):
         for name in files:
             img_files.append(os.path.join(root, name))
+    img_files = sorted(img_files)
 
     y_pred = []
     y_prob = []
+    y_test = []
     pb = ProgressBar(total=100, prefix='Predict data', suffix='', decimals=3, length=50, fill='=')
-    for img_path in sorted(img_files):
+    for img_path in img_files:
         img = image.load_img(img_path, target_size=(224, 224))
         x = image.img_to_array(img)
         preds = model.predict(x[None, :, :, :])
@@ -39,24 +41,12 @@ def predict(img_dir, model):
         pred_prob = decoded[0][0][1]
         y_pred.append(pred_label)
         y_prob.append(pred_prob)
-        pb.print_progress_bar(len(y_pred) * 100 / len(img_files))
-
-    return y_pred, y_prob
-
-
-def decode(img_dir):
-    img_files = []
-    for root, dirs, files in os.walk(img_dir, topdown=False):
-        for name in files:
-            img_files.append(os.path.join(root, name))
-
-    y_test = []
-    for img_path in sorted(img_files):
         tokens = img_path.split('/')
         class_id = int(tokens[-2])
         y_test.append(class_id)
+        pb.print_progress_bar(len(y_pred) * 100 / len(img_files))
 
-    return y_test
+    return y_pred, y_test
 
 
 def plot_confusion_matrix(cm, classes,
@@ -114,10 +104,8 @@ if __name__ == '__main__':
     print("\nLoad the trained ResNet model....")
     model = load_model()
 
-    y_pred, y_prob = predict('data/valid', model)
+    y_pred, y_test = predict('data/valid', model)
     print("y_pred: " + str(y_pred))
-
-    y_test = decode('data/valid')
     print("y_test: " + str(y_test))
 
     acc = calc_acc(y_pred, y_test)
