@@ -23,10 +23,9 @@ if __name__ == '__main__':
     num_samples = 8041
     out = open('result.txt', 'a')
     for i in range(num_samples):
-        filename = os.path.join('data/test', '%05d.jpg'.format(i + 1))
+        filename = os.path.join('data/test', '%05d.jpg' % (i + 1))
         bgr_img = cv.imread(filename)
         rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
-
         preds = model.predict([rgb_img])
         prob = np.max(preds)
         class_id = np.argmax(preds)
