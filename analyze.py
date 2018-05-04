@@ -4,12 +4,11 @@ import scipy.io
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
-
 from sklearn.metrics import confusion_matrix
 from keras.preprocessing import image
-
 import os
 from utils import load_model
+from console_progressbar import ProgressBar
 
 
 def read_data():
@@ -34,15 +33,16 @@ def decode_predictions(preds, top=5):
 
 
 def predict(model, img_dir):
-    y_pred = []
-    y_prob = []
-
     img_files = []
     for root, dirs, files in os.walk(img_dir, topdown=False):
         for name in files:
             img_files.append(os.path.join(root, name))
 
-    for img_path in img_files:
+    y_pred = []
+    y_prob = []
+    pb = ProgressBar(total=100, prefix='Predict data', suffix='', decimals=3, length=50, fill='=')
+    for i in range(len(img_files)):
+        img_path = img_files[i]
         img = image.load_img(img_path, target_size=(224, 224))
         x = image.img_to_array(img)
         preds = model.predict(x[None, :, :, :])
@@ -51,6 +51,7 @@ def predict(model, img_dir):
         pred_prob = decoded[0][0][1]
         y_pred.append(pred_label)
         y_prob.append(pred_prob)
+        pb.print_progress_bar((i + 1) * 100 / img_files)
 
     return y_pred, y_prob
 
