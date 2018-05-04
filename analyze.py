@@ -11,17 +11,6 @@ from utils import load_model
 from console_progressbar import ProgressBar
 
 
-def read_data():
-    cars_annos = scipy.io.loadmat('devkit/cars_train_annos')
-    annotations = cars_annos['annotations']
-    annotations = np.transpose(annotations)
-    class_ids = []
-    for annotation in annotations:
-        class_id = annotation[0][4][0][0]
-        class_ids.append(class_id)
-    return class_ids
-
-
 def decode_predictions(preds, top=5):
     results = []
     for pred in preds:
@@ -32,7 +21,7 @@ def decode_predictions(preds, top=5):
     return results
 
 
-def predict(model, img_dir):
+def predict(img_dir, model):
     img_files = []
     for root, dirs, files in os.walk(img_dir, topdown=False):
         for name in files:
@@ -41,9 +30,7 @@ def predict(model, img_dir):
     y_pred = []
     y_prob = []
     pb = ProgressBar(total=100, prefix='Predict data', suffix='', decimals=3, length=50, fill='=')
-    num_samples = len(img_files)
-    for i in range(num_samples):
-        img_path = img_files[i]
+    for img_path in sorted(img_files):
         img = image.load_img(img_path, target_size=(224, 224))
         x = image.img_to_array(img)
         preds = model.predict(x[None, :, :, :])
@@ -52,22 +39,22 @@ def predict(model, img_dir):
         pred_prob = decoded[0][0][1]
         y_pred.append(pred_label)
         y_prob.append(pred_prob)
-        pb.print_progress_bar((i + 1) * 100 / num_samples)
+        pb.print_progress_bar(len(y_pred) * 100 / len(img_files))
 
     return y_pred, y_prob
 
 
-def decode(class_ids, img_dir):
+def decode(img_dir):
     img_files = []
     for root, dirs, files in os.walk(img_dir, topdown=False):
         for name in files:
             img_files.append(os.path.join(root, name))
 
     y_test = []
-    for img_path in img_files:
+    for img_path in sorted(img_files):
         tokens = img_path.split('/')
-        image_id = int(tokens[-1][:5])
-        y_test.append(class_ids[image_id - 1])
+        class_id = int(tokens[-2])
+        y_test.append(class_id)
 
     return y_test
 
@@ -109,12 +96,12 @@ def plot_confusion_matrix(cm, classes,
 
 def calc_acc(y_pred, y_test):
     num_corrects = 0
-    for i in range(num_test_samples):
+    for i in range(num_samples):
         pred = y_pred[i]
         test = y_test[i]
         if pred == test:
             num_corrects += 1
-    return num_corrects / num_test_samples
+    return num_corrects / num_samples
 
 
 if __name__ == '__main__':
@@ -122,16 +109,15 @@ if __name__ == '__main__':
     num_channels = 3
     num_classes = 196
     class_names = range(1, (num_classes + 1))
-    num_test_samples = 1629
+    num_samples = 1629
 
     print("\nLoad the trained ResNet model....")
     model = load_model()
 
-    y_pred, y_prob = predict(model, 'data/valid')
+    y_pred, y_prob = predict('data/valid', model)
     print("y_pred: " + str(y_pred))
 
-    class_ids = read_data()
-    y_test = decode(class_ids, 'data/valid')
+    y_test = decode('data/valid')
     print("y_test: " + str(y_test))
 
     acc = calc_acc(y_pred, y_test)
