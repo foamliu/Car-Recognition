@@ -51,10 +51,22 @@ $ tensorboard --logdir path_to_current_dir/logs
  ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/train.jpg)
 
 ### Analysis
-Use 8,041 testing images for result analysis.
-
-
-### Predict
+Update utils.py with your best model, and use 1,629 validation images for result analysis:
 ```bash
-$ python predict.py --i [image_path]
+$ python analyze.py
+```
+
+#### Test acc:
+**88.70%**
+
+#### Confusion matrix:
+
+ ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/confusion_matrix.jpg)
+
+### Test
+
+
+### Demo
+```bash
+$ python demo.py --v [video_path]
 ```
