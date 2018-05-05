@@ -61,7 +61,7 @@ $ python analyze.py
 
 #### Confusion matrix:
 
- ![image](https://github.com/foamliu/Facial-Expression-Prediction/raw/master/images/confusion_matrix.jpg)
+ ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/confusion_matrix.jpg)
 
 ### Test
 
