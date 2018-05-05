@@ -20,7 +20,7 @@ if __name__ == '__main__':
         preds = model.predict(rgb_img)
         prob = np.max(preds)
         class_id = np.argmax(preds)
-        out.write('{}\n'.format(str(class_id)))
+        out.write('{}\n'.format(str(class_id + 1)))
         pb.print_progress_bar((i + 1) * 100 / num_samples)
 
     out.close()

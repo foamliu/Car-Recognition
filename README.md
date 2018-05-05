@@ -51,7 +51,7 @@ $ tensorboard --logdir path_to_current_dir/logs
  ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/train.jpg)
 
 ### Analysis
-Update utils.py with your best model, and use 1,629 validation images for result analysis:
+Update "model_weights_path" in "utils.py" with your best model, and use 1,629 validation images for result analysis:
 ```bash
 $ python analyze.py
 ```
@@ -64,7 +64,9 @@ $ python analyze.py
  ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/confusion_matrix.jpg)
 
 ### Test
-
+```bash
+$ python test.py
+```
 
 ### Demo
 ```bash
