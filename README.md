@@ -68,6 +68,8 @@ $ python analyze.py
 $ python test.py
 ```
 
+Submit predictions of test data set (8,041 testing images) at [Cars Dataset](https://ai.stanford.edu/~jkrause/cars/car_dataset.html), evaluation result:
+
 ### Demo
 ```bash
 $ python demo.py --v [video_path]
