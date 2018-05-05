@@ -81,3 +81,12 @@ Download [pre-trained model](https://github.com/foamliu/Car-Recognition/releases
 ```bash
 $ python demo.py --i [image_path]
 ```
+If no argument, a sample image is used:
+
+ ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/samples/07647.jpg)
+
+```bash
+$ python demo.py
+class_name: Lamborghini Reventon Coupe 2008
+prob: 0.9999994
+```

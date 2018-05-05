@@ -8,6 +8,7 @@ import argparse
 
 if __name__ == '__main__':
     model = load_model()
+    model.load_weights('models/model.96-0.89.hdf5')
 
     cars_meta = scipy.io.loadmat('devkit/cars_meta')
     class_names = cars_meta['class_names']  # shape=(1, 196)
@@ -19,7 +20,7 @@ if __name__ == '__main__':
 
     filename = args["image"]
     if filename is None:
-        filename = 'images/samples/04732.jpg'
+        filename = 'images/samples/07647.jpg'
 
     bgr_img = cv.imread(filename)
     rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
@@ -27,5 +28,5 @@ if __name__ == '__main__':
     preds = model.predict(rgb_img)
     prob = np.max(preds)
     class_id = np.argmax(preds)
-    print('class_name: ' + class_names[class_id])
+    print('class_name: ' + str(class_names[class_id][0][0]))
     print('prob: ' + str(prob))
