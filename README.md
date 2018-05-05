@@ -56,7 +56,7 @@ Update "model_weights_path" in "utils.py" with your best model, and use 1,629 va
 $ python analyze.py
 ```
 
-#### Test acc:
+#### Validation acc:
 **88.70%**
 
 #### Confusion matrix:
@@ -69,6 +69,9 @@ $ python test.py
 ```
 
 Submit predictions of test data set (8,041 testing images) at [Cars Dataset](https://ai.stanford.edu/~jkrause/cars/car_dataset.html), evaluation result:
+
+#### Test acc:
+**88.88%**
 
  ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/test.jpg)
 
