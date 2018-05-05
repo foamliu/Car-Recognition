@@ -75,7 +75,9 @@ Submit predictions of test data set (8,041 testing images) at [Cars Dataset](htt
 
  ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/test.jpg)
 
-### Demo (TODO)
+### Demo
+Download [pre-trained model](https://github.com/foamliu/Car-Recognition/releases/download/v1.0/model.96-0.89.hdf5) into "models" folder then run:
+
 ```bash
 $ python demo.py --i [image_path]
 ```
