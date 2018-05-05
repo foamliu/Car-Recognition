@@ -9,4 +9,8 @@ models/
 logs/
 cars_test/
 cars_train/
-devkit/
+devkit/README.txt
+devkit/cars_test_annos.mat
+devkit/cars_train_annos.mat
+devkit/eval_train.m
+devkit/train_perfect_preds.txt
