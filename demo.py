@@ -4,6 +4,7 @@ import numpy as np
 import scipy.io
 from utils import load_model
 import argparse
+import keras.backend as K
 
 
 if __name__ == '__main__':
@@ -30,3 +31,6 @@ if __name__ == '__main__':
     class_id = np.argmax(preds)
     print('class_name: ' + str(class_names[class_id][0][0]))
     print('prob: ' + str(prob))
+
+    K.clear_session()
+
