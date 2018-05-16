@@ -22,8 +22,6 @@ if __name__ == '__main__':
                    os.path.isfile(os.path.join(test_path, f)) and f.endswith('.jpg')]
     num_samples = 16
 
-
-
     for i in range(num_samples):
         while True:
             image_name = random.choice(test_images)
