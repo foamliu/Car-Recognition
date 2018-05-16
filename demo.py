@@ -20,7 +20,7 @@ if __name__ == '__main__':
     test_path = 'cars_test/'
     test_images = [f for f in os.listdir(test_path) if
                    os.path.isfile(os.path.join(test_path, f)) and f.endswith('.jpg')]
-    num_samples = 16
+    num_samples = 18
 
     for i in range(num_samples):
         while True:
