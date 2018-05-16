@@ -20,7 +20,7 @@ if __name__ == '__main__':
     test_path = 'cars_test/'
     test_images = [f for f in os.listdir(test_path) if
                    os.path.isfile(os.path.join(test_path, f)) and f.endswith('.jpg')]
-    samples = random.sample(test_images, 10)
+    samples = random.sample(test_images, 16)
 
     for i in range(len(samples)):
         image_name = samples[i]
