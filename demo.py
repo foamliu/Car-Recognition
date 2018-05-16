@@ -20,14 +20,20 @@ if __name__ == '__main__':
     test_path = 'cars_test/'
     test_images = [f for f in os.listdir(test_path) if
                    os.path.isfile(os.path.join(test_path, f)) and f.endswith('.jpg')]
-    samples = random.sample(test_images, 16)
+    num_samples = 16
 
-    for i in range(len(samples)):
-        image_name = samples[i]
+
+
+    for i in range(num_samples):
+        while True:
+            image_name = random.choice(test_images)
+            orig_img = cv.imread(os.path.join(test_path, image_name))
+            height, weight = orig_img.shape[:2]
+            if height > 400 and weight > 600:
+                break
+
         filename = os.path.join('data/test', image_name)
         print('Start processing image: {}'.format(filename))
-
-        orig_img = cv.imread(os.path.join(test_path, image_name))
         bgr_img = cv.imread(filename)
         rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
         rgb_img = np.expand_dims(rgb_img, 0)
