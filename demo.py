@@ -1,4 +1,5 @@
 # import the necessary packages
+import json
 import os
 import random
 
@@ -38,5 +39,9 @@ if __name__ == '__main__':
         text = ('Predict: {}, prob: {}'.format(class_names[class_id][0][0], prob))
         results.append({'label': class_names[class_id][0][0], 'prob': '{:.4}'.format(prob)})
         cv.imwrite('images/{}_out.png'.format(i), bgr_img)
+
+    print(results)
+    with open('results.json', 'w') as file:
+        json.dump(results, file)
 
     K.clear_session()
