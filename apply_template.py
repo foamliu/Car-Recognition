@@ -2,7 +2,7 @@
 import json
 
 if __name__ == '__main__':
-    with open('README.t', 'r', encoding="utf-8") as file:
+    with open('README.template', 'r', encoding="utf-8") as file:
         text = file.readlines()
     text = ''.join(text)
 
