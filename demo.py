@@ -23,16 +23,10 @@ if __name__ == '__main__':
                    os.path.isfile(os.path.join(test_path, f)) and f.endswith('.jpg')]
 
     num_samples = 20
+    samples = random.sample(test_images, num_samples)
     results = []
-    for i in range(num_samples):
-        while True:
-            image_name = random.choice(test_images)
-            orig_img = cv.imread(os.path.join(test_path, image_name))
-            height, weight = orig_img.shape[:2]
-            if height > 400 and weight > 600:
-                break
-
-        filename = os.path.join('data/test', image_name)
+    for image_name in samples:
+        filename = os.path.join(test_path, image_name)
         print('Start processing image: {}'.format(filename))
         bgr_img = cv.imread(filename)
         bgr_img = cv.resize(bgr_img, (img_width, img_height), cv.INTER_CUBIC)
