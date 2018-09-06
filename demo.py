@@ -42,6 +42,6 @@ if __name__ == '__main__':
 
     print(results)
     with open('results.json', 'w') as file:
-        json.dump(results, file)
+        json.dump(results, file, indent=4)
 
     K.clear_session()
