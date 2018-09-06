@@ -25,7 +25,7 @@ if __name__ == '__main__':
     num_samples = 20
     samples = random.sample(test_images, num_samples)
     results = []
-    for image_name in samples:
+    for i, image_name in enumerate(samples):
         filename = os.path.join(test_path, image_name)
         print('Start processing image: {}'.format(filename))
         bgr_img = cv.imread(filename)
