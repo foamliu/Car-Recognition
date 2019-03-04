@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import itertools
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
-from keras.preprocessing import image
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
+from keras.preprocessing import image
+from sklearn.metrics import confusion_matrix
+from tqdm import tqdm
+
 from utils import load_model
-from console_progressbar import ProgressBar
 
 
 def decode_predictions(preds, top=5):
@@ -29,8 +30,8 @@ def predict(img_dir, model):
 
     y_pred = []
     y_test = []
-    pb = ProgressBar(total=100, prefix='Predict data', suffix='', decimals=3, length=50, fill='=')
-    for img_path in img_files:
+
+    for img_path in tqdm(img_files):
         # print(img_path)
         img = image.load_img(img_path, target_size=(224, 224))
         x = image.img_to_array(img)
@@ -39,11 +40,10 @@ def predict(img_dir, model):
         pred_label = decoded[0][0][0]
         # print(pred_label)
         y_pred.append(pred_label)
-        tokens = img_path.split('\\')
+        tokens = img_path.split(os.pathsep)
         class_id = int(tokens[-2])
         # print(str(class_id))
         y_test.append(class_id)
-        pb.print_progress_bar(len(y_pred) * 100 / len(img_files))
 
     return y_pred, y_test
 
@@ -67,7 +67,7 @@ def plot_confusion_matrix(cm, classes,
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
     plt.title(title)
     plt.colorbar()
-    #tick_marks = np.arange(len(classes))
+    # tick_marks = np.arange(len(classes))
     # plt.xticks(tick_marks, classes, rotation=45)
     # plt.yticks(tick_marks, classes)
 
