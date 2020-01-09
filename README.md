@@ -35,7 +35,7 @@ Download [ResNet-152](https://drive.google.com/file/d/0Byy2AcGyEVxfeXExMzNNOHpEO
 ### Data Pre-processing
 Extract 8,144 training images, and split them by 80:20 rule (6,515 for training, 1,629 for validation):
 ```bash
-$ python pre-process.py
+$ python pre_process.py
 ```
 
 ### Train

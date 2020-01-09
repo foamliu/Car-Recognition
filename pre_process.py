@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import tarfile
-import scipy.io
-import numpy as np
 import os
-import cv2 as cv
-import shutil
 import random
-from console_progressbar import ProgressBar
+import shutil
+import tarfile
+
+import cv2 as cv
+import numpy as np
+import scipy.io
+from tqdm import tqdm
 
 
 def ensure_folder(folder):
@@ -23,9 +24,7 @@ def save_train_data(fnames, labels, bboxes):
     num_train = int(round(num_samples * train_split))
     train_indexes = random.sample(range(num_samples), num_train)
 
-    pb = ProgressBar(total=100, prefix='Save train data', suffix='', decimals=3, length=50, fill='=')
-
-    for i in range(num_samples):
+    for i in tqdm(range(num_samples)):
         fname = fnames[i]
         label = labels[i]
         (x1, y1, x2, y2) = bboxes[i]
@@ -40,7 +39,6 @@ def save_train_data(fnames, labels, bboxes):
         x2 = min(x2 + margin, width)
         y2 = min(y2 + margin, height)
         # print("{} -> {}".format(fname, label))
-        pb.print_progress_bar((i + 1) * 100 / num_samples)
 
         if i in train_indexes:
             dst_folder = 'data/train'
@@ -62,9 +60,7 @@ def save_test_data(fnames, bboxes):
     dst_folder = 'data/test'
     num_samples = len(fnames)
 
-    pb = ProgressBar(total=100, prefix='Save test data', suffix='', decimals=3, length=50, fill='=')
-
-    for i in range(num_samples):
+    for i in tqdm(range(num_samples)):
         fname = fnames[i]
         (x1, y1, x2, y2) = bboxes[i]
         src_path = os.path.join(src_folder, fname)
