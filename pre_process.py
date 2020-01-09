@@ -73,7 +73,6 @@ def save_test_data(fnames, bboxes):
         x2 = min(x2 + margin, width)
         y2 = min(y2 + margin, height)
         # print(fname)
-        pb.print_progress_bar((i + 1) * 100 / num_samples)
 
         dst_path = os.path.join(dst_folder, fname)
         crop_image = src_image[y1:y2, x1:x2]
